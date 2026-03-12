@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhruvi & Shivam's San Juan Bach</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #ffb703;
+            --bg: #f8f9fa;
+            --text: #2b2d42;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reservation-time {
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 250px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        /* NEW ACTIVITY GALLERY STYLES */
+        .activity-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .activity-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #e9ecef;
+        }
+
+        .theme-box {
+            background: #e0fbfc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-link:hover {
+            background: var(--secondary);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .tab-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                flex: 1 1 50%;
+                text-align: center;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .activity-gallery img {
+                height: 90px; /* Slightly shorter on mobile so they fit nicely */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>San Juan Bach</h1>
+        <p>Dhruvi & Shivam | March 19 - 22</p>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'itinerary')">Itinerary</button>
+        <button class="tab-btn" onclick="openTab(event, 'airbnb')">Airbnb</button>
+        <button class="tab-btn" onclick="openTab(event, 'activities')">Activities</button>
+        <button class="tab-btn" onclick="openTab(event, 'themes')">Themes & Packing</button>
+    </nav>
+
+    <main id="itinerary" class="tab-content active">
+        <h2>Trip Overview</h2>
+        
+        <div class="card">
+            <h3>Day 1: Arrivals (Thurs, Mar 19)</h3>
+            <p>Arrive in San Juan and get ready to kick off the weekend!</p>
+            <ul>
+                <li><strong>4:00 PM:</strong> Check-in to Airbnb</li>
+                <li>Pool Party ("Last Splash")</li>
+                <li>Dinner (Pizza/Maggi/Costco snacks)</li>
+                <li>Pajama Party & Late Night Bach Games ("Maggie and Masti / BLACK OUT")</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Day 2: Adventure Day (Fri, Mar 20)</h3>
+            <p>Outdoor adventures to the rainforest followed by a sunset sail!</p>
+            <ul>
+                <li>Breakfast</li>
+                <li><strong>ATV at Playa Fortuna</strong> <span class="reservation-time">10:00 AM - 11:30 PM</span></li>
+                <li>Lunch at Luquillo Kiosks</li>
+                <li><strong>Fajardo Bay Sunset Sail</strong> <span class="reservation-time">2:30 PM (4 Hrs)</span></li>
+                <li>Dinner at Luquillo</li>
+                <li>Head back to Airbnb (Games/Chill)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Day 3: Activity Day (Sat, Mar 21)</h3>
+            <p>Explore the rainforest before a nice night out in the city.</p>
+            <ul>
+                <li><strong>El Yunque Rainforest</strong> <span class="reservation-time">10:00 AM</span></li>
+                <li>Head back to Airbnb & Pizza Lunch (2:30 PM)</li>
+                <li>Leave for San Juan (5:30/6:00 PM)</li>
+                <li><strong>Dinner in San Juan</strong> <span class="reservation-time">7:00 PM</span></li>
+                <li>Bar Hopping in La Factoria (9:30 PM)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Day 4: Check Out (Sun, Mar 22)</h3>
+            <p>Sightseeing and farewells.</p>
+            <ul>
+                <li>Check out of Airbnb (11:00 AM temp - aiming for 12/1 PM)</li>
+                <li>Brunch in San Juan</li>
+                <li>Bacardi Tour (Optional - 2 hours)</li>
+                <li>San Juan Fort Exploration ($10 - 2 hours)</li>
+            </ul>
+        </div>
+    </main>
+
+    <main id="airbnb" class="tab-content">
+        <h2>Our Home Base</h2>
+        <div class="card">
+            <img src="./src/airbnb_main.png" class="image-placeholder" alt="Airbnb Main">
+            
+            <h3>Villa Details</h3>
+            <p><strong>Address:</strong> Rio Grande, Puerto Rico</p>
+            <p><strong>Website:</strong> <a href="www.3Tvacationrentals.com"> www.3Tvacationrentals.com </a> </p>
+            
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <img src="./src/airbnb1.png" class="image-placeholder" style="height: 200px; flex: 1;">
+                <img src="./src/airbnb2.png" class="image-placeholder" style="height: 200px; flex: 1;">
+            </div>
+        </div>
+    </main>
+
+    <main id="activities" class="tab-content">
+        <h2>Activity Details</h2>
+
+        <div class="card">
+            <h3>ATV Adventure</h3>
+            <p><em>Rev up your engines! We are tearing through the tropical trails of the Carabali Rainforest Park. Prepare to get a little muddy and experience Puerto Rico's lush landscape at full speed.</em></p>
+            
+            <div class="activity-gallery">
+                <img src="./src/atv1.jpg" alt="ATV 1">
+                <img src="./src/atv2.jpg" alt="ATV 2">
+                <img src="./src/caption.jpg" alt="ATV 3">
+            </div>
+
+            <p><strong>Price:</strong> $90 for Driver, $60 for Passenger</p>
+            <a href="https://carabalirainforestpark.com/adventures/fourtrack/" target="_blank" class="btn-link">View Website</a>
+        </div>
+
+        <div class="card">
+            <h3>Snorkel & Sunset Sail</h3>
+            <p><em>Set sail for golden hour! We have the whole boat to ourselves. We'll stop for snorkeling, sail to Icacos Island to chill on the beach, and toast to the sunset. The boat provides snacks, rum punch, and soft drinks, but we'll be bringing our own alcohol and food too!</em></p>
+            
+            <div class="activity-gallery">
+                <img src="./src/beach1.jpg" alt="Boat 1">
+                <img src="./src/beach2.jpg" alt="Boat 2">
+                <img src="./src/beach3.jpg" alt="Boat 3">
+            </div>
+
+            <p><strong>Price:</strong> $1,900 for the whole boat</p>
+            <a href="https://www.instagram.com/islandreeftours/" target="_blank" class="btn-link">View Instagram</a>
+        </div>
+
+        <div class="card">
+            <h3>El Yunque Rainforest</h3>
+            <p><em>Self-guided exploration of the only tropical rainforest in the U.S. National Forest System.</em></p>
+            
+            <div class="activity-gallery">
+                <img src="./src/rf1.jpeg" alt="Rainforest 1">
+                <img src="./src/rf2.jpg" alt="Rainforest 2">
+                <img src="./src/rf3.jpg" alt="Rainforest 3">
+            </div>
+
+            <div class="theme-box">
+                <h4>Stop 1: Juan Diego Falls & Swimming Hole (1 Hour)</h4>
+                <p><strong>The Vibe:</strong> Stunning waterfall pool perfect for a dip.</p>
+                <p><strong>What to do:</strong> A quick 5-min walk takes you to the lower falls. It's a steep, muddy scramble, but leads to a secluded 40-foot waterfall! <em>(Note: Wear water shoes or grippy hiking boots!)</em></p>
+            </div>
+
+            <div class="theme-box">
+                <h4>Stop 2: Mt. Britton Tower Hike (1.5 - 2 Hours)</h4>
+                <p><strong>The Vibe:</strong> A short, rewarding hike with serious elevation and 360-degree views.</p>
+                <p><strong>What to do:</strong> Follow the paved (but slippery) trail uphill through the lush forest. Less than a mile, but a 600ft climb. Climb the stone tower for dramatic misty views of the mountains and ocean!</p>
+            </div>
+        </div>
+    </main>
+
+    <main id="themes" class="tab-content">
+        <h2>Themes & Packing Guide</h2>
+
+        <div class="card">
+            <h3>March 19 (Thursday)</h3>
+            
+            <div class="theme-box">
+                <strong>Pool Party: "LAST SPLASH"</strong>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> White or Cream Tan</li>
+                    <li><strong>Everyone Else:</strong> Shades of blue swimsuits</li>
+                </ul>
+            </div>
+
+            <div class="theme-box">
+                <strong>PJ Party: "Maggie and Masti" OR "BLACK OUT"</strong>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> White / Tan / Blue</li>
+                    <li><strong>Everyone Else:</strong> Black PJs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>March 20 (Friday)</h3>
+            <p><em>*Note: We are going directly from ATV to the boat, so make sure you pack your boat day items before leaving the Airbnb!*</em></p>
+            
+            <div class="theme-box">
+                <strong>ATV Adventure</strong>
+                <p>Custom shirts with black leggings/joggers WITH swimwear underneath.</p>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> Blue or Red Swimwear</li>
+                    <li><strong>Everyone Else:</strong> Black Swimwear</li>
+                    <li><strong>Footwear:</strong> Sneakers required!</li>
+                </ul>
+            </div>
+
+            <div class="theme-box">
+                <strong>Boat Day / Beach</strong>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> Blue or Red Swimwear</li>
+                    <li><strong>Everyone Else:</strong> Black Swimwear</li>
+                    <li><strong>Footwear:</strong> Flipflops</li>
+                </ul>
+                <p><em>Bring a cover-up or light dress to put over swimwear for our casual dinner afterwards.</em></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>March 21 (Saturday)</h3>
+            
+            <div class="theme-box">
+                <strong>Rainforest</strong>
+                <p>Active wear WITH swimwear underneath (You can reuse swimwear or bring an extra pair. Outfit w/ Cover-up or Athletic wear recommended).</p>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> Black Swimwear</li>
+                    <li><strong>Everyone Else:</strong> Shades of Blue Swimwear</li>
+                    <li><strong>Footwear:</strong> Water shoes highly recommended</li>
+                </ul>
+            </div>
+
+            <div class="theme-box">
+                <strong>San Juan / La Factoria: "Sunset Party"</strong>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> White, Black, or Gold</li>
+                    <li><strong>Everyone Else:</strong> Red, Yellow, Orange, Bright Pink</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>March 22 (Sunday)</h3>
+            
+            <div class="theme-box">
+                <strong>Brunch & Sightseeing</strong>
+                <ul>
+                    <li><strong>Dhruvi & Shivam:</strong> Coordinated Fits</li>
+                    <li><strong>Everyone Else:</strong> Casual summer dress or fit</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Remove active class from all buttons
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab and add an "active" class to the button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Scroll slightly to top of tabs for mobile convenience
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
